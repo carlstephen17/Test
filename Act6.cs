@@ -6,7 +6,7 @@ struct Time
 
     public Time(int hours, int mins)
     {
-        minutes = (hours * 60) + mins;
+        minutes = hours * 60 + mins;
     }
 
     public Time(int totalMinutes)
@@ -38,21 +38,30 @@ struct Time
     {
         return new Time(t1.minutes - t2.minutes);
     }
+
+    public static implicit operator Time(int totalMinutes)
+    {
+        return new Time(totalMinutes);
+    }
+
+    public static explicit operator int(Time t)
+    {
+        return t.minutes;
+    }
 }
 
 class Program
 {
     static void Main()
     {
-        Time t1 = new Time(1, 30);
-        Time t2 = new Time(0, 45);
+        Time t1 = 90; 
+        Console.WriteLine("t1: " + t1);
+        
+        int minutes = (int)t1;
+        Console.WriteLine("Minutes in t1: " + minutes);
 
-        Time plus = t1 + t2;
-        Time minus = t1 - t2;
-
-        Console.WriteLine("Time 1: " + t1);
-        Console.WriteLine("Time 2: " + t2);
-        Console.WriteLine("Added Time: " + plus);
-        Console.WriteLine("Subtracted Time: " + minus);
+        Time t2 = new Time(0, 45);  
+        Time sum = t1 + t2;
+        Console.WriteLine("Sum: " + sum);
     }
 }
